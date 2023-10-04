@@ -6,15 +6,13 @@ namespace ConsoleSnake
 {
     class Start
     {
-        public Start()
-        {
+        public Start() =>        
             window = new WindowSnake();
-        }
+        
 
-        public Start(in WindowSnake window)
-        {
+        public Start(in WindowSnake window) =>        
             this.window = window;
-        }
+        
 
         public void Play()
         {
