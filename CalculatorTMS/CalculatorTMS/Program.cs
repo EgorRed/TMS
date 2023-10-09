@@ -18,7 +18,7 @@ static void start()
         var expression = Console.ReadLine();
         Console.WriteLine(Calculate(expression));
         
-        Console.WriteLine("Хотите по пробовать ещё?");
+        Console.WriteLine("Want to try again? (y/n)");
         var mass = Console.ReadLine();
         if (mass == "n")
             return;      
