@@ -10,5 +10,19 @@ static double Calculate(in string expression)
     return postfixNotationCalculator.Calculate(shuntingYardAlgorithm.Apply(tokenizer.Parse(expression))).Value;
 }
 
-Console.WriteLine(Calculate("2 + 8 * 23 * 5 / 2 + (2 * 5)"));
 
+static void start()
+{
+    while (true)
+    {
+        var expression = Console.ReadLine();
+        Console.WriteLine(Calculate(expression));
+        
+        Console.WriteLine("Хотите по пробовать ещё?");
+        var mass = Console.ReadLine();
+        if (mass == "n")
+            return;      
+    }
+}
+
+start();
