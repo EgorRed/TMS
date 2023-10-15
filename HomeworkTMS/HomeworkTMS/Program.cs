@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
 Bank bank = new Bank();
-var parrBankDep = bank.calculateContribution(18, 12.1, 1000).ToArray();
+var parrBankDep = bank.calculateContribution(24, 11, 1000).ToArray();
 
 Console.WriteLine("+-----------+-----------+--------+--------------+------------+");
 
@@ -22,7 +22,7 @@ for (int i = 0; i < parrBankDep.Length; i++)
     Console.Write($"| {parrBankDep[i].percent} ");
     Console.SetCursorPosition(33, i + 1);
 
-    Console.Write($"| {Math.Round(parrBankDep[i].depositAmount, 2)} BUN");
+    Console.Write($"| {Math.Round(parrBankDep[i].depositAmount, 2)} BYN");
     Console.SetCursorPosition(48, i + 1);
 
     Console.Write($"| {Math.Round(parrBankDep[i].revenueForTheCurrentMonth, 2)} BYN");

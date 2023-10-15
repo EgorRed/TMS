@@ -18,10 +18,12 @@ namespace HomeworkTMS
 
     public class Bank
     {
+
         public List<MonthData> calculateContribution(in int countOfMonth, in double percent, in decimal depositAmount)
         {
             DateTime _dateTime = DateTime.Now;
             _dateTime = _dateTime.AddDays(1);
+
             decimal _depositAmount = depositAmount;
             var _daysEndOfTheMonth = DaysEndOfTheMonth(_dateTime);
 
@@ -48,7 +50,7 @@ namespace HomeworkTMS
                 else if (i == countOfMonth)
                 {
                     monthData.revenueForTheCurrentMonth = CalculateThePercentage
-                        (_depositAmount, (decimal)monthData.percent, ArrayMonthData.First().firstDayOfMonth.Day);
+                        (_depositAmount, (decimal)monthData.percent, ArrayMonthData.First().firstDayOfMonth.Day-1);
 
                     _depositAmount += monthData.revenueForTheCurrentMonth;
 
