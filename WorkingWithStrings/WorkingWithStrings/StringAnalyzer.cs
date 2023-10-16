@@ -197,16 +197,6 @@ namespace WorkingWithStrings
             return counter;
         }
 
-        private string RemoveSlashCharacters(in string str)
-        {
-            StringBuilder stringBuilder = new StringBuilder(str);
-            stringBuilder.Replace("\\n", "");
-            //stringBuilder.Replace("\\n", "");
-            //stringBuilder.Replace("\\n", "");
-            //stringBuilder.Replace("\\n", "");
-            return stringBuilder.ToString();
-        }
-
         private int DigitCount(in string word)
         {
             int counter = 0;

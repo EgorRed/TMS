@@ -11,8 +11,11 @@ StringAnalyzer stringAnalyzer = new(@"C:\Users\User\Desktop\proj\test.txt", Mode
 //var a = stringAnalyzer.TheLongestWord();
 //Console.WriteLine($"Саме длинное слово: [{a.word}] количество вхождений: {a.num} ");
 
-var a = stringAnalyzer.FindWordsWithSameStartEndLetter();
-foreach (var sentence in a)
-{
-    Console.WriteLine(sentence);
-}
+//var a = stringAnalyzer.FindWordsWithSameStartEndLetter();
+//foreach (var sentence in a)
+//{
+//    Console.WriteLine(sentence);
+//}
+
+Menu menu = new Menu();
+menu.Start(ref stringAnalyzer);
