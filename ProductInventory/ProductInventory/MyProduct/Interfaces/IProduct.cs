@@ -14,6 +14,8 @@ namespace ProductInventory.MyProduct.Interfaces
         string ProductType { get; set; }
         uint Quantity { get; set; }
         decimal Price { get; set; }
+        decimal PriceTotal { get; set; }
+        public void SetPriceTotal();
         void ParseString(string stringProduct);
         string GetString();
     }

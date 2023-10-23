@@ -14,10 +14,16 @@ namespace ProductInventory.MyProduct
         public string? ProductType { get; set; }
         public uint Quantity { get; set; }
         public decimal Price { get; set; }
+        public decimal PriceTotal { get; set; }
+
+        public void SetPriceTotal()
+        {
+            PriceTotal = Price * Quantity;
+        }
 
         public string GetString()
         {
-            return $"{Id}|{Name}|{ProductType}|{Quantity}|{Price}";
+            return $"{Id}|{Name}|{ProductType}|{Quantity}|{Price}|{PriceTotal}";
         }
 
         public void ParseString(string stringProduct)

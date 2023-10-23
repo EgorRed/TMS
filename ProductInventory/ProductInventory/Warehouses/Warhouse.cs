@@ -1,4 +1,6 @@
-﻿using ProductInventory.Warehouses.Interfaces;
+﻿using ProductInventory.MyProduct;
+using ProductInventory.MyProduct.Interfaces;
+using ProductInventory.Warehouses.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,41 +9,85 @@ using System.Threading.Tasks;
 
 namespace ProductInventory.Warehouses
 {
-    internal class Warhouse<TProduct, TWarehouseIndex> : IWarehouse<TProduct, TWarehouseIndex>
+    internal class Warhouse<TWarehouseIndex> : IWarehouse<TWarehouseIndex>
     {
         
 
-        public TWarehouseIndex _WarehouseIndex { get; }
+        public TWarehouseIndex WarehouseIndex { get; }
 
-        public List<TProduct> _AllProducts { get; }
-
-        public Dictionary<string, List<TProduct>> _ProductCategories { get; }
+        public List<IProduct> AllProducts { get; }
 
         public Warhouse(TWarehouseIndex warehouseIndex)
         {
-            _WarehouseIndex = warehouseIndex;
-            _AllProducts = new List<TProduct>();
-            _ProductCategories = new Dictionary<string, List<TProduct>>();
+            WarehouseIndex = warehouseIndex;
+            AllProducts = new List<IProduct>();
         }
 
-        public void AddProductToTheWarehouse(uint productIndex, uint quantity)
+        public void AddProductToTheWarehouse(IProduct product)
         {
-            throw new NotImplementedException();
+            if (FindProduct(product.Id) == null) 
+            {
+                product.SetPriceTotal();
+                AllProducts.Add(product);
+            }
+            else
+            {
+                FindProduct(product.Id).Quantity += product.Quantity;
+                FindProduct(product.Id).SetPriceTotal();
+            }
         }
 
         public void RemoveTheGoodsFromTheWarehouse(uint productIndex, uint quantity)
         {
-            throw new NotImplementedException();
+            if (FindProduct(productIndex) != null)
+            {
+                var product = FindProduct(productIndex);
+                if (product.Quantity >= quantity)
+                {
+                    product.Quantity -= quantity;
+                    if(product.Quantity == 0)
+                        AllProducts.Remove(product);
+
+                }                    
+                else
+                    throw new Exception("You can't delete more than you actually have");
+            }
+            else
+            {
+                throw new Exception("The specified product does not exist");
+            }
         }
 
-        void IWarehouse<TProduct, TWarehouseIndex>.ChangeTheQuantityOfGoodsInStock(uint productIndex, uint quantity)
+        public void ChangeTheQuantityOfGoodsInStock(uint productIndex, uint quantity)
         {
-            throw new NotImplementedException();
+
+            FindProduct(productIndex).Quantity = quantity;
+            FindProduct(productIndex).SetPriceTotal();
         }
 
-        void IWarehouse<TProduct, TWarehouseIndex>.SplitProductsIntoCategories()
+        public Dictionary<string, List<IProduct>> SplitProductsIntoCategories()
         {
-            throw new NotImplementedException();
+            var ProductsCategories = new Dictionary<string, List<IProduct>>();
+            foreach (var product in AllProducts)
+            {
+                if (ProductsCategories.ContainsKey(product.ProductType))
+                {
+                    ProductsCategories[product.ProductType].Add(product);
+                }
+                else if (!ProductsCategories.ContainsKey(product.ProductType))
+                {
+                    ProductsCategories.Add(product.ProductType, new List<IProduct>());
+                    ProductsCategories[product.ProductType].Add(product);
+                }
+            }
+            return ProductsCategories;
+        }
+
+
+
+        public IProduct FindProduct(uint productIndex)
+        {
+            return AllProducts.FirstOrDefault(x => x.Id == productIndex);
         }
     }
 }

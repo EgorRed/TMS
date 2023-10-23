@@ -1,14 +1,9 @@
-﻿using ProductInventory.MyProduct;
-using ProductInventory.Warehouses;
+﻿using ProductInventory;
+using ProductInventory.MyProduct;
+using ProductInventory.View;
 
-ListOfWarehouses<uint> listOfWarehouses = new ListOfWarehouses<uint>();
-listOfWarehouses.AddWarehouse(2515);
-listOfWarehouses.AddWarehouse(2514);
-listOfWarehouses.AddWarehouse(992);
-listOfWarehouses.AddWarehouse(2512);
-listOfWarehouses.AddWarehouse(2518);
+WarhousesManager warhousesManager = new WarhousesManager();
+Menu menu = new Menu(warhousesManager);
+menu.Start();
 
-foreach (var item in listOfWarehouses.Warehouses)
-{
-    Console.WriteLine(item);
-}
+
