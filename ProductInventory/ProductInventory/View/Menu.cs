@@ -81,8 +81,13 @@ namespace ProductInventory.View
                             break;
                     }
                     
+
                 }
-                Console.WriteLine("Недопустимое значение");
+                else
+                {
+                    Console.WriteLine("Недопустимое значение");
+                }
+                
             } while (true);
         }
 

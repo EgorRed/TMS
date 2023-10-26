@@ -1,6 +1,8 @@
 ﻿using ProductInventory.MyProduct.Interfaces;
 using ProductInventory.Warehouses;
 using ProductInventory.Warehouses.Interfaces;
+using ProductInventory.WarehousesFileProvider;
+using ProductInventory.WarehousesFileProvider.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +14,38 @@ namespace ProductInventory
     internal class WarhousesManager
     {
         public List<IWarehouse<uint>> Warehouses { get; }
+        private FileProvider _fileProvider { get ; set; }
 
 
         public WarhousesManager()
         {
             Warehouses = new List<IWarehouse<uint>>();
         }
-        public WarhousesManager(List<IWarehouse<uint>> warehouses) : this()
+
+        public WarhousesManager(string DefoultPath) : this()
         {
-            
+            _fileProvider = new FileProvider(DefoultPath);
+            _fileProvider.LoadData(this);
         }
 
+        public void LoadWarhouses(Warhouse<uint> warhouse)
+        {
+            if (FindWarehouse(warhouse.WarehouseIndex) == null)
+            {
+                Warehouses.Add(warhouse);
+            }
+            else
+            {
+                throw new Exception("such a warehouse already exists");
+            }
+        }
 
         public void CreateNewWarehouse(uint warehouseIndex)
         {
             if (FindWarehouse(warehouseIndex) == null)
             {
-
                 Warehouses.Add(new Warhouse<uint>(warehouseIndex));
+                _fileProvider.Createfile($"{warehouseIndex}");
             }
             else
             {
@@ -43,6 +59,7 @@ namespace ProductInventory
             if (FindWarehouse(warehouseIndex) != null)
             {
                 Warehouses.Remove(FindWarehouse(warehouseIndex));
+                _fileProvider.DeleteFile($"{_fileProvider.DefoultPath}\\{warehouseIndex}");
             }
             else
             {
@@ -68,7 +85,9 @@ namespace ProductInventory
         {
             if (FindWarehouse(warehouseIndex) != null)
             {
-                FindWarehouse(warehouseIndex).AddProductToTheWarehouse(product);
+                var warehouse = FindWarehouse(warehouseIndex);
+                warehouse.AddProductToTheWarehouse(product);
+                _fileProvider.Synchronization(warehouse);
             }
             else
             {

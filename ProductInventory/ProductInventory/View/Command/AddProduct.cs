@@ -24,7 +24,7 @@ namespace ProductInventory.View.Command
         public void Execute()
         {
             Console.Clear();
-            var warhouse = _manager.FindWarehouse(_warhouseIndex);
+            
             var product = new Product();
            
             while (true) 
@@ -70,7 +70,7 @@ namespace ProductInventory.View.Command
             }
 
             product.SetPriceTotal();
-            warhouse.AddProductToTheWarehouse(product);
+            _manager.AddProduct(_warhouseIndex, product);
 
         }
     }

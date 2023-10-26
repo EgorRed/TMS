@@ -24,29 +24,29 @@ namespace ProductInventory.View.Command
         {
             Console.Clear();
             var warhouse = _manager.FindWarehouse(_warhouseIndex);
-            Console.WriteLine("+----------------+----------------------+----------------------+------------+--------------+-------------+");
-            Console.WriteLine("| Уникальный код |       Название       |     Тип продукта     | Количество | сумма за шт. | общая сумма |");
-            Console.WriteLine("+----------------+----------------------+----------------------+------------+--------------+-------------+");
+            Console.WriteLine("+----------------+---------------------------------+----------------------+------------+--------------+-------------+");
+            Console.WriteLine("| Уникальный код |             Название            |     Тип продукта     | Количество | сумма за шт. | общая сумма |");
+            Console.WriteLine("+----------------+---------------------------------+----------------------+------------+--------------+-------------+");
 
             for (int i = 0; i < warhouse.AllProducts.Count; i++)
             {
                 Console.Write($"| {warhouse.AllProducts[i].Id}");
                 Console.SetCursorPosition(17, i + 3);
                 Console.Write($"| {warhouse.AllProducts[i].Name}");
-                Console.SetCursorPosition(40, i + 3);
+                Console.SetCursorPosition(51, i + 3);
                 Console.Write($"| {warhouse.AllProducts[i].ProductType}");
-                Console.SetCursorPosition(63, i + 3);
+                Console.SetCursorPosition(74, i + 3);
                 Console.Write($"| {warhouse.AllProducts[i].Quantity}");
-                Console.SetCursorPosition(76, i + 3);
+                Console.SetCursorPosition(87, i + 3);
                 Console.Write($"| {warhouse.AllProducts[i].Price}");
-                Console.SetCursorPosition(91, i + 3);
+                Console.SetCursorPosition(102, i + 3);
                 Console.Write($"| {warhouse.AllProducts[i].PriceTotal}");
-                Console.SetCursorPosition(105, i + 3);
+                Console.SetCursorPosition(116, i + 3);
                 Console.Write("|");
                 Console.WriteLine();
             }
 
-            Console.WriteLine("+----------------+----------------------+----------------------+------------+--------------+-------------+");
+            Console.WriteLine("+----------------+---------------------------------+----------------------+------------+--------------+-------------+");
         }
     }
 }

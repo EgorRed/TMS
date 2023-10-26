@@ -34,6 +34,7 @@ namespace ProductInventory.MyProduct
             ProductType = prod[2];
             Quantity = uint.Parse(prod[3]);
             Price = decimal.Parse(prod[4]);
+            PriceTotal = decimal.Parse(prod[5]);
         }
     }
 }
