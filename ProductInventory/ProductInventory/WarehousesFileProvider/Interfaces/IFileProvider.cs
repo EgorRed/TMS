@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProductInventory.WarehousesFileProvider.Interfaces
 {
     internal interface IFileProvider
-    {
+    {   
         string DefoultPath { get; }
         void Createfile(string name);
         void DeleteFile(string name);
@@ -19,3 +19,4 @@ namespace ProductInventory.WarehousesFileProvider.Interfaces
         void Synchronization(IWarehouse<uint> warehouse);
     }
 }
+

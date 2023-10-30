@@ -11,7 +11,7 @@ namespace ProductInventory.Warehouses
 {
     internal class Warhouse<TWarehouseIndex> : IWarehouse<TWarehouseIndex>
     {
-        
+
 
         public TWarehouseIndex WarehouseIndex { get; }
 
@@ -25,7 +25,7 @@ namespace ProductInventory.Warehouses
 
         public void AddProductToTheWarehouse(IProduct product)
         {
-            if (FindProduct(product.Id) == null) 
+            if (FindProduct(product.Id) == null)
             {
                 product.SetPriceTotal();
                 AllProducts.Add(product);
@@ -45,10 +45,10 @@ namespace ProductInventory.Warehouses
                 if (product.Quantity >= quantity)
                 {
                     product.Quantity -= quantity;
-                    if(product.Quantity == 0)
+                    if (product.Quantity == 0)
                         AllProducts.Remove(product);
 
-                }                    
+                }
                 else
                     throw new Exception("You can't delete more than you actually have");
             }

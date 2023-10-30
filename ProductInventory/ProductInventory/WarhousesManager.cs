@@ -14,7 +14,7 @@ namespace ProductInventory
     internal class WarhousesManager
     {
         public List<IWarehouse<uint>> Warehouses { get; }
-        private FileProvider _fileProvider { get ; set; }
+        private FileProvider _fileProvider { get; set; }
 
 
         public WarhousesManager()
@@ -81,7 +81,7 @@ namespace ProductInventory
         }
 
 
-        public void AddProduct(uint warehouseIndex, IProduct product) 
+        public void AddProduct(uint warehouseIndex, IProduct product)
         {
             if (FindWarehouse(warehouseIndex) != null)
             {
@@ -131,7 +131,7 @@ namespace ProductInventory
                 _warehouseFromWhere.RemoveTheGoodsFromTheWarehouse(productIndex, quantity);
                 _warehouseWhere.AddProductToTheWarehouse(_warehouseFromWhere.FindProduct(productIndex));
             }
-            else 
+            else
             {
                 throw new Exception("There is no such warehouse");
             }

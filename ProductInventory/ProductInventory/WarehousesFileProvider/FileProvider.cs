@@ -20,17 +20,17 @@ namespace ProductInventory.WarehousesFileProvider
         public FileProvider(string defoultPath)
         {
             DefoultPath = defoultPath;
-        }   
+        }
 
 
         public void Createfile(string name)
         {
-            if (!File.Exists($"{DefoultPath}\\{name}.txt")) 
+            if (!File.Exists($"{DefoultPath}\\{name}.txt"))
             {
                 FileStream fs = File.Create($"{DefoultPath}\\{name}.txt");
                 fs.Close();
             }
-            else 
+            else
             {
                 throw new Exception("there is already such a file");
             }
@@ -85,9 +85,9 @@ namespace ProductInventory.WarehousesFileProvider
         {
             if (Directory.Exists($"{DefoultPath}\\"))
             {
-                
+
                 var files = Directory.GetFiles(DefoultPath).ToList();
-                foreach (var file in files) 
+                foreach (var file in files)
                 {
                     var fileName = Path.GetFileName(file);
                     var warehouseIndex = uint.Parse(fileName.Remove(fileName.Length - 4));
