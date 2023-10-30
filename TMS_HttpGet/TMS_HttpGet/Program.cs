@@ -5,13 +5,13 @@ var client = new HttpClient();
 
 var chars = Enumerable.Range('a', 'z' - 'a' + 1).Select(c => (char)c).ToArray();
 
-for (var i = 0; i <= chars.Length; i++)
-{
-    for (var j = 0; j <= chars.Length; j++)
+foreach (char leftSymbol in chars)
     {
-        string name = chars[i].ToString() + chars[j].ToString();
+    foreach (char rigthSymbol in chars)
+    {
+        string name = chars[leftSymbol].ToString() + chars[rigthSymbol].ToString();
         var path = url + "." + name;
-        
+
         try
         {
             HttpResponseMessage responce = await client.GetAsync(path);
@@ -43,7 +43,7 @@ for (var i = 0; i <= chars.Length; i++)
 
             Console.WriteLine($"Ошибка при обработке страницы \"{path}\".\n{ex.Data}");
         }
-
-
     }
+
+    
 }
