@@ -1,4 +1,5 @@
-﻿using TMS_API_Test1.Models;
+﻿using TMS_API_Test1.Models.Product;
+using TMS_API_Test1.Models;
 
 namespace TMS_API_Test1.Service
 {

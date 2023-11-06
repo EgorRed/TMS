@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
 using TMS_API_Test1.Models;
+using TMS_API_Test1.Models.Product;
 
 namespace TMS_API_Test1.Service
 {
     public class WarhousesManagerService : IWarhousesManagerService
     {
-        //public List<IWarehouse> Warehouses { get; }
-        //private FileProvider _fileProvider { get; set; }
         public Dictionary<WarhouseIndexModel, IWarehouse> Warehouses { get; }
 
         public WarhousesManagerService()
@@ -14,30 +14,11 @@ namespace TMS_API_Test1.Service
             Warehouses = new Dictionary<WarhouseIndexModel, IWarehouse>();
         }
 
-        //public WarhousesManager(string DefoultPath) : this()
-        //{
-        //    _fileProvider = new FileProvider(DefoultPath);
-        //    _fileProvider.LoadData(this);
-        //}
-
-        //public void LoadWarhouses(Warhouse warhouse)
-        //{
-        //    if (FindWarehouse(warhouse.WarehouseIndex) == null)
-        //    {
-        //        Warehouses.Add(warhouse.WarehouseIndex, warhouse);
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("such a warehouse already exists");
-        //    }
-        //}
-
         public void CreateNewWarehouse(WarhouseIndexModel warehouseIndex)
         {
             if (FindWarehouse(warehouseIndex) == null)
             {
                 Warehouses.Add(warehouseIndex, new Warhouse(warehouseIndex));
-                //_fileProvider.Createfile($"{warehouseIndex}");
             }
             else
             {
@@ -45,13 +26,12 @@ namespace TMS_API_Test1.Service
             }
         }
 
-
+        //не работает
         public void DeleteWarehouse(WarhouseIndexModel warehouseIndex)
         {
             if (FindWarehouse(warehouseIndex) != null)
             {
                 Warehouses.Remove(warehouseIndex);
-                //_fileProvider.DeleteFile($"{_fileProvider.DefoultPath}\\{warehouseIndex}");
             }
             else
             {
@@ -79,7 +59,6 @@ namespace TMS_API_Test1.Service
             {
                 var warehouse = FindWarehouse(warehouseIndex);
                 warehouse.AddProductToTheWarehouse(product);
-                //_fileProvider.Synchronization(warehouse);
             }
             else
             {
@@ -100,7 +79,7 @@ namespace TMS_API_Test1.Service
             }
         }
 
-
+        //не реализовано
         public Dictionary<string, List<IProductModels>> GetProductCategories(WarhouseIndexModel warehouseIndex)
         {
             if (FindWarehouse(warehouseIndex) != null)
@@ -113,6 +92,7 @@ namespace TMS_API_Test1.Service
             }
         }
 
+        //не реализовано
         public void MovingTheProduct(WarhouseIndexModel warehouseFromWhere, WarhouseIndexModel warehouseWhere, uint productIndex, uint quantity)
         {
             var _warehouseFromWhere = FindWarehouse(warehouseFromWhere);
@@ -131,12 +111,7 @@ namespace TMS_API_Test1.Service
 
         public IWarehouse FindWarehouse(WarhouseIndexModel warehouseIndex)
         {
-            IWarehouse returnValue;
-            if(Warehouses.TryGetValue(warehouseIndex, out returnValue))
-            {
-                return returnValue;
-            }
-            return null;
+            return Warehouses.FirstOrDefault(x => warehouseIndex.Index == x.Key.Index).Value;
         }
 
     }

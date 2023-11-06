@@ -1,4 +1,4 @@
-﻿namespace TMS_API_Test1.Models
+﻿namespace TMS_API_Test1.Models.Product
 {
     public interface IProductModels
     {

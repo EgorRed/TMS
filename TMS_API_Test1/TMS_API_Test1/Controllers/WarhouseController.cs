@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Evaluation;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using TMS_API_Test1.Models;
+using TMS_API_Test1.Models.Product;
 using TMS_API_Test1.Service;
 
 namespace TMS_API_Test1.Controllers
@@ -27,13 +25,29 @@ namespace TMS_API_Test1.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return BadRequest(ex.Message);
             }       
 
             return Ok();
         }
 
-        [HttpGet]
+        //не работает 
+        [HttpPost]
+        public IActionResult DeleteWarhouse([FromBody] WarhouseIndexModel index)
+        {
+            try
+            {
+                _warhouses.DeleteWarehouse(index);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
         public List<WarhouseIndexModel> GetAllWarhouse()
         {
             var WarhouseIndex = new List<WarhouseIndexModel>();
@@ -44,19 +58,14 @@ namespace TMS_API_Test1.Controllers
             return WarhouseIndex;
         }
 
-        [HttpGet]
-        public IEnumerable<ProductModels> GetProduct(WarhouseIndexModel index)
-        {
-            return (IEnumerable<ProductModels>)_warhouses.GetListAllProducts(index);
-        }
-
         [HttpPost]
-        public IActionResult AddProduct(WarhouseIndexModel index, ProductDto product)
+        public IActionResult AddProduct(ProductDto product)
         {
             try
             {
-                _warhouses.AddProduct(index, new ProductModels()
+                _warhouses.AddProduct(product.WarhouseIndex, new ProductModels()
                 {
+                    Id = 0,
                     Name = product.Name,
                     ProductType = product.ProductType,
                     Quantity = product.Quantity,
@@ -67,16 +76,36 @@ namespace TMS_API_Test1.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return BadRequest(ex.Message);
             }
 
             return Ok();
         }
 
-        //[HttpPost]
-        //public IEnumerable<ProductModels> GetProductItems(WarhouseIndex index)
-        //{
-        //    return (IEnumerable<ProductModels>)_warhouses.GetListAllProducts(index);
-        //}
+        [HttpPost]
+        public ProductListModel GetProduct(WarhouseIndexModel index)
+        {
+            ProductListModel productListModel = new ProductListModel()
+            {
+                productList = _warhouses.GetListAllProducts(index)
+            };
+            return productListModel;
+        }
+
+        [HttpPost]
+        public IActionResult RemoveProduct(SpecificProductModel product)
+        {
+            try
+            {
+                _warhouses.RemoveProduct(product.warhouseIndex, product.ProductId, product.Quantity);
+            }
+            catch (Exception ex)
+            {
+
+                return  BadRequest(ex);
+            }
+            
+            return Ok();
+        }
     }
 }
