@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TMS_API_Test1.Middleware;
 using TMS_API_Test1.Models;
 using TMS_API_Test1.Service;
 
@@ -17,11 +18,14 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCustomExeptionHandler();
 
 app.UseHttpsRedirection();
 

@@ -26,7 +26,7 @@ namespace TMS_API_Test1.Service
             }
         }
 
-        //не работает
+
         public void DeleteWarehouse(WarhouseIndexModel warehouseIndex)
         {
             if (FindWarehouse(warehouseIndex) != null)
@@ -58,6 +58,7 @@ namespace TMS_API_Test1.Service
             if (FindWarehouse(warehouseIndex) != null)
             {
                 var warehouse = FindWarehouse(warehouseIndex);
+                product.Id = (uint)product.Name.GetHashCode();
                 warehouse.AddProductToTheWarehouse(product);
             }
             else

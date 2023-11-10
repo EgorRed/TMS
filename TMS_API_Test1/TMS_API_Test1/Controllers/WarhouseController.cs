@@ -26,12 +26,11 @@ namespace TMS_API_Test1.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }       
+            }
 
             return Ok();
         }
-
-        //не работает 
+ 
         [HttpPost]
         public IActionResult DeleteWarhouse([FromBody] WarhouseIndexModel index)
         {

@@ -1,5 +1,6 @@
 ﻿using TMS_API_Test1.Models.Product;
 using TMS_API_Test1.Models;
+using TMS_API_Test1.MyException;
 
 namespace TMS_API_Test1.Service
 {
@@ -48,7 +49,7 @@ namespace TMS_API_Test1.Service
             }
             else
             {
-                throw new Exception("The specified product does not exist");
+                throw new NotFoundException(productIndex.ToString());
             }
         }
 
