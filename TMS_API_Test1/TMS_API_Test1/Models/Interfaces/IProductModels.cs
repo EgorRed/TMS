@@ -3,6 +3,7 @@
     public interface IProductModels
     {
         uint Id { get; set; }
+        uint ProductIndex { get; set; }
         string Name { get; set; }
         string ProductType { get; set; }
         uint Quantity { get; set; }

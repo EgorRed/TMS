@@ -1,6 +1,7 @@
-﻿using TMS_API_Test1.Models.Product;
-using TMS_API_Test1.Models;
+﻿using TMS_API_Test1.Models;
 using TMS_API_Test1.MyException;
+using TMS_API_Test1.Models.Interfaces;
+using TMS_API_Test1.Models.Product;
 
 namespace TMS_API_Test1.Service
 {
@@ -20,15 +21,15 @@ namespace TMS_API_Test1.Service
 
         public void AddProductToTheWarehouse(IProductModels product)
         {
-            if (FindProduct(product.Id) == null)
+            if (FindProduct(product.ProductIndex) == null)
             {
                 product.SetPriceTotal();
                 AllProducts.Add(product);
             }
             else
             {
-                FindProduct(product.Id).Quantity += product.Quantity;
-                FindProduct(product.Id).SetPriceTotal();
+                FindProduct(product.ProductIndex).Quantity += product.Quantity;
+                FindProduct(product.ProductIndex).SetPriceTotal();
             }
         }
 
@@ -82,7 +83,7 @@ namespace TMS_API_Test1.Service
 
         public IProductModels FindProduct(uint productIndex)
         {
-            return AllProducts.FirstOrDefault(x => x.Id == productIndex);
+            return AllProducts.FirstOrDefault(x => x.ProductIndex == productIndex);
         }
     }
 }

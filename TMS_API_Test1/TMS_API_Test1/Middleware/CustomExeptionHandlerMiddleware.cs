@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json;
+using System.Net;
 using System.Text.Json;
 using TMS_API_Test1.MyException;
 
@@ -15,34 +16,47 @@ namespace TMS_API_Test1.Middleware
         {
             try
             {
-                await _next(context);
+                await _next.Invoke(context);
             }
             catch (Exception exception)
             {
 
-                await HandleExceptionAsync(context, exception);
+                await HandleExceptionMessageAsync(context, exception);
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        //private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        //{
+        //    var code = HttpStatusCode.InternalServerError;
+        //    var result = string.Empty;
+        //    switch (exception)
+        //    {
+        //        case NotFoundException:
+        //            code = HttpStatusCode.NotFound;
+        //            break;
+        //    }
+
+        //    context.Response.ContentType = "application/json";
+        //    context.Response.StatusCode = (int)code;
+
+        //    if (result == string.Empty)
+        //    {
+        //        result = JsonSerializer.Serialize(new { error = exception.Message });
+        //    }
+
+        //    return context.Response.WriteAsync(result);
+        //}
+        private static Task HandleExceptionMessageAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError;
-            var result = string.Empty;
-            switch (exception)
-            {
-                case NotFoundException:
-                    code = HttpStatusCode.NotFound;
-                    break;
-            }
-
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
-
-            if (result == string.Empty)
+            int statusCode = (int)HttpStatusCode.InternalServerError;
+            var result = JsonConvert.SerializeObject(new
             {
-                result = JsonSerializer.Serialize(new { error = exception.Message });
-            }
-
+                StatusCode = statusCode,
+                ErrorMessage = exception.Message
+            });
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = statusCode;
             return context.Response.WriteAsync(result);
         }
     }

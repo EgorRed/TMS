@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using TMS_API_Test1.Models;
+using TMS_API_Test1.Models.Interfaces;
 using TMS_API_Test1.Models.Product;
+using TMS_API_Test1.MyException;
+using TMS_API_Test1.Service.Interfaces;
 
 namespace TMS_API_Test1.Service
 {
@@ -35,7 +38,7 @@ namespace TMS_API_Test1.Service
             }
             else
             {
-                throw new Exception("There is no such warehouse");
+                throw new NotFoundException(warehouseIndex.Index.ToString());
             }
         }
 
@@ -58,12 +61,12 @@ namespace TMS_API_Test1.Service
             if (FindWarehouse(warehouseIndex) != null)
             {
                 var warehouse = FindWarehouse(warehouseIndex);
-                product.Id = (uint)product.Name.GetHashCode();
+                product.ProductIndex = (uint)product.Name.GetHashCode();
                 warehouse.AddProductToTheWarehouse(product);
             }
             else
             {
-                throw new Exception("There is no such warehouse");
+                throw new NotFoundException(warehouseIndex.Index.ToString());
             }
         }
 
@@ -76,7 +79,7 @@ namespace TMS_API_Test1.Service
             }
             else
             {
-                throw new Exception("There is no such warehouse");
+                throw new NotFoundException(warehouseIndex.Index.ToString());
             }
         }
 

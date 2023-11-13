@@ -1,7 +1,7 @@
 ﻿using TMS_API_Test1.Models;
 using TMS_API_Test1.Models.Product;
 
-namespace TMS_API_Test1.Service
+namespace TMS_API_Test1.Service.Interfaces
 {
     public interface IWarhousesManagerService
     {
@@ -20,7 +20,7 @@ namespace TMS_API_Test1.Service
         Dictionary<string, List<IProductModels>> GetProductCategories(WarhouseIndexModel warehouseIndex);
 
         void MovingTheProduct(WarhouseIndexModel warehouseFromWhere, WarhouseIndexModel warehouseWhere, uint productIndex, uint quantity);
-        
+
         IWarehouse FindWarehouse(WarhouseIndexModel warehouseIndex);
     }
 }

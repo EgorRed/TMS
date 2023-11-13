@@ -1,4 +1,6 @@
-﻿namespace TMS_API_Test1.Models.Product
+﻿using TMS_API_Test1.Models.Interfaces;
+
+namespace TMS_API_Test1.Models.Product
 {
     public class ProductListModel
     {

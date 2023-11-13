@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TMS_API_Test1.Models;
 using TMS_API_Test1.Models.Product;
-using TMS_API_Test1.Service;
+using TMS_API_Test1.MyException;
+using TMS_API_Test1.Service.Interfaces;
 
 namespace TMS_API_Test1.Controllers
 {
@@ -19,14 +20,15 @@ namespace TMS_API_Test1.Controllers
         [HttpPost]
         public IActionResult AddWarhouse([FromBody] WarhouseIndexModel index)
         {
-            try
-            {
-                _warhouses.CreateNewWarehouse(index);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _warhouses.CreateNewWarehouse(index);
+            //try
+            //{
+            //    _warhouses.CreateNewWarehouse(index);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
 
             return Ok();
         }
@@ -64,7 +66,7 @@ namespace TMS_API_Test1.Controllers
             {
                 _warhouses.AddProduct(product.WarhouseIndex, new ProductModels()
                 {
-                    Id = 0,
+                    ProductIndex = 0,
                     Name = product.Name,
                     ProductType = product.ProductType,
                     Quantity = product.Quantity,
@@ -98,10 +100,9 @@ namespace TMS_API_Test1.Controllers
             {
                 _warhouses.RemoveProduct(product.warhouseIndex, product.ProductId, product.Quantity);
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
-
-                return  BadRequest(ex);
+                return  BadRequest(ex.Message);
             }
             
             return Ok();
