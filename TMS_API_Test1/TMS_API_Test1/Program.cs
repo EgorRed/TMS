@@ -17,16 +17,13 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-app.MapRazorPages();
-
+app.UseCustomExeptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseCustomExeptionHandler();
 
 app.UseHttpsRedirection();
 

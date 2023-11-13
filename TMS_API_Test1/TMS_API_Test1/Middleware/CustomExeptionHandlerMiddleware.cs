@@ -46,17 +46,18 @@ namespace TMS_API_Test1.Middleware
 
         //    return context.Response.WriteAsync(result);
         //}
+
         private static Task HandleExceptionMessageAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
-            int statusCode = (int)HttpStatusCode.InternalServerError;
+            int сode = (int)HttpStatusCode.InternalServerError;
             var result = JsonConvert.SerializeObject(new
             {
-                StatusCode = statusCode,
+                StatusCode = сode,
                 ErrorMessage = exception.Message
             });
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = statusCode;
+            context.Response.StatusCode = сode;
             return context.Response.WriteAsync(result);
         }
     }

@@ -20,15 +20,14 @@ namespace TMS_API_Test1.Controllers
         [HttpPost]
         public IActionResult AddWarhouse([FromBody] WarhouseIndexModel index)
         {
-            _warhouses.CreateNewWarehouse(index);
-            //try
-            //{
-            //    _warhouses.CreateNewWarehouse(index);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
+            try
+            {
+                _warhouses.CreateNewWarehouse(index);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }
