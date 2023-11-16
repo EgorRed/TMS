@@ -12,7 +12,7 @@ namespace TMS_API_Test1.Middleware
         public CustomExeptionHandlerMiddleware(RequestDelegate next) =>
             _next = next;
 
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
