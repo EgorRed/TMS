@@ -9,9 +9,9 @@ namespace Registration.Controllers
     [Route("[controller]/[action]")]
     public class UsersController : ControllerBase
     {
-        private UserManagerService _userManagerService;
+        private IUserManagerService _userManagerService;
 
-        public UsersController(UserManagerService userManagerService)
+        public UsersController(IUserManagerService userManagerService)
         {
             _userManagerService = userManagerService;
         }
